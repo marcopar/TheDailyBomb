@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#9db960</color>
+    <color name="colorPrimaryDark">#556632</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="endGradient">#9db960</color>
+    <color name="startGradient">#556632</color>
+    <color name="background">#9db960</color>
+    <!--color name="ledOff">#94b356</color>
+    <color name="ledOn">#202020</color-->
+    <color name="ledOff">#11000000</color>
+    <color name="ledOn">#AA000000</color>
+</resources>

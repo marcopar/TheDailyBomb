@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="eu.flatworld.android.thedailybomb.MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="~~~~~~~~~~~~~~~~"
+            android:textColor="@color/ledOff"
+            android:textSize="@dimen/title_font_size" />
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="!!!!Settings!!!!"
+            android:textColor="@color/ledOn"
+            android:textSize="@dimen/title_font_size" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="~~~~~~~~~~~~~~~~"
+            android:textColor="@color/ledOff"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="!!!!!SignIn!!!!!"
+            android:textColor="@color/ledOn"
+            android:textSize="@dimen/font_size" />
+
+        <Button
+            android:id="@+id/bSignIn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="~~~~~~~~~~~~~~~~"
+            android:textColor="@color/ledOff"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="!!!!!SignOut!!!!"
+            android:textColor="@color/ledOn"
+            android:textSize="@dimen/font_size" />
+
+        <Button
+            android:id="@+id/bSignOut"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="~~~~~~~~~~~~~~~~"
+            android:textColor="@color/ledOff"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="!!!Test!Notif!!!"
+            android:textColor="@color/ledOn"
+            android:textSize="@dimen/font_size" />
+
+        <Button
+            android:id="@+id/bTestNotification"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="~~~~~~~~~~~~~~~~"
+            android:textColor="@color/ledOff"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            fontPath="fonts/DSEG14Modern-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="!!!!!!Back!!!!!!"
+            android:textColor="@color/ledOn"
+            android:textSize="@dimen/font_size" />
+
+        <Button
+            android:id="@+id/bBack"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+
+</LinearLayout>
+</FrameLayout>
