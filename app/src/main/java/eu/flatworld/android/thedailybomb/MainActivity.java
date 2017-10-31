@@ -45,8 +45,11 @@ public class MainActivity extends AppCompatActivity implements
 
 
         setContentView(R.layout.main_activity);
-
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainScreen()).commit();
+        if (getIntent().getStringExtra(Main.EXTRA_BOMBID) != null) {
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new BombScreen()).commit();
+        } else {
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainScreen()).commit();
+        }
     }
 
     @Override

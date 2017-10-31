@@ -5,10 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-/**
- * Created by marcopar on 28/10/17.
- */
-
 public class BombBroadcastReceiver extends BroadcastReceiver {
     public BombBroadcastReceiver() {
     }

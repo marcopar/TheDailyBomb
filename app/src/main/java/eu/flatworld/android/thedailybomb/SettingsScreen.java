@@ -16,10 +16,6 @@ import de.greenrobot.event.EventBus;
 import eu.flatworld.android.thedailybomb.eventbus.SignInEvent;
 import eu.flatworld.android.thedailybomb.eventbus.SignOutEvent;
 
-/**
- * Created by marcopar on 05/01/17.
- */
-
 public class SettingsScreen extends Fragment {
 
     @Override
@@ -62,11 +58,12 @@ public class SettingsScreen extends Fragment {
     private void testNotificationClicked() {
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent notifyIntent = new Intent(getActivity(), BombBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast
-                (getActivity(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManagerCompat.setExact(alarmManager, AlarmManager.RTC_WAKEUP,  System.currentTimeMillis() + 5000, pendingIntent);
-
-       //EventBus.getDefault().post(new BombReceivedEvent());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getActivity(),
+                0,
+                notifyIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManagerCompat.setExact(alarmManager, AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 3000, pendingIntent);
     }
 
 

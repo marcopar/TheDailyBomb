@@ -8,9 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-/**
- * Created by marcopar on 28/10/17.
- */
+import java.util.UUID;
 
 public class BombNotificationService extends IntentService {
     private static final int NOTIFICATION_ID = 3;
@@ -29,6 +27,7 @@ public class BombNotificationService extends IntentService {
                         .setContentText("Hello World!").setVibrate(new long[]{0L, 200L, 50L, 200L, 50L, 200L, 50L});
 
         Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.putExtra(Main.EXTRA_BOMBID, UUID.randomUUID().toString());
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         this,

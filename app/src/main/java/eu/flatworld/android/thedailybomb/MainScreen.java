@@ -7,10 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * Created by marcopar on 05/01/17.
- */
-
 public class MainScreen extends Fragment {
 
     @Override
