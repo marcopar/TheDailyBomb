@@ -3,13 +3,9 @@ package eu.flatworld.android.thedailybomb;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
@@ -19,11 +15,9 @@ import eu.flatworld.android.thedailybomb.eventbus.SignInEvent;
 import eu.flatworld.android.thedailybomb.eventbus.SignOutEvent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity {
 
-    private GoogleApiClient mGoogleApiClient;
+    private GoogleApiClientHelper googleApiClientHelper;
 
     private static int RC_SIGN_IN = 9001;
 
@@ -37,11 +31,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         // Create the Google Api Client with access to the Play Games services
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
-                .build();
+        googleApiClientHelper = new GoogleApiClientHelper(this);
 
 
         setContentView(R.layout.main_activity);
@@ -61,52 +51,18 @@ public class MainActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        mGoogleApiClient.connect();
+        googleApiClientHelper.connect();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
+        if (googleApiClientHelper.isConnected()) {
+            googleApiClientHelper.disconnect();
         }
     }
 
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Log.i(Main.LOGTAG, "Connected as " + Games.Players.getCurrentPlayer(mGoogleApiClient).getDisplayName());
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        // Attempt to reconnect
-        Log.i(Main.LOGTAG, "Connection suspended");
-        mGoogleApiClient.connect();
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i(Main.LOGTAG, "Connection failed with code " + connectionResult.getErrorCode());
-        if (mResolvingConnectionFailure) {
-            // already resolving
-            Log.i(Main.LOGTAG, "Already resolving connection failure");
-            return;
-        }
-
-        if (mSignInClicked || mAutoStartSignInFlow) {
-            mAutoStartSignInFlow = false;
-            mSignInClicked = false;
-            mResolvingConnectionFailure = true;
-            Log.i(Main.LOGTAG, "Resolving connection failure");
-            if (!BaseGameUtils.resolveConnectionFailure(this, mGoogleApiClient, connectionResult,
-                    RC_SIGN_IN, getString(R.string.signin_other_error))) {
-                mResolvingConnectionFailure = false;
-            }
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -116,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements
             mResolvingConnectionFailure = false;
             if (resultCode == RESULT_OK) {
                 Log.i(Main.LOGTAG, "Signed in");
-                mGoogleApiClient.connect();
+                googleApiClientHelper.connect();
             } else {
                 Log.i(Main.LOGTAG, "Sign in failed");
                 BaseGameUtils.showActivityResultError(this, requestCode, resultCode, R.string.signin_other_error);
@@ -127,16 +83,16 @@ public class MainActivity extends AppCompatActivity implements
     @Subscribe
     public void onSignInEvent(SignInEvent event) {
         mSignInClicked = true;
-        mGoogleApiClient.connect();
+        googleApiClientHelper.connect();
     }
 
     @Subscribe
     public void onSignOutEvent(SignOutEvent event) {
         mSignInClicked = false;
-        if(mGoogleApiClient.isConnected()) {
+        if (googleApiClientHelper.isConnected()) {
             Log.i(Main.LOGTAG, "Signed out");
-            Games.signOut(mGoogleApiClient);
-            mGoogleApiClient.disconnect();
+            Games.signOut(googleApiClientHelper.getGoogleApiClient());
+            googleApiClientHelper.disconnect();
         } else {
             Log.i(Main.LOGTAG, "Already signed out");
         }
