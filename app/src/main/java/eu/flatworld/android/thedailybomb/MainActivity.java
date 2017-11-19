@@ -21,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static int RC_SIGN_IN = 9001;
 
-    private boolean mResolvingConnectionFailure = false;
-    private boolean mAutoStartSignInFlow = true;
-    private boolean mSignInClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == RC_SIGN_IN) {
-            mSignInClicked = false;
-            mResolvingConnectionFailure = false;
+            googleApiClientHelper.setSignInClicked(false);
+            googleApiClientHelper.setResolvingConnectionFailure(false);
             if (resultCode == RESULT_OK) {
                 Log.i(Main.LOGTAG, "Signed in");
                 googleApiClientHelper.connect();
@@ -82,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onSignInEvent(SignInEvent event) {
-        mSignInClicked = true;
+        googleApiClientHelper.setSignInClicked(true);
         googleApiClientHelper.connect();
     }
 
     @Subscribe
     public void onSignOutEvent(SignOutEvent event) {
-        mSignInClicked = false;
+        googleApiClientHelper.setSignInClicked(false);
         if (googleApiClientHelper.isConnected()) {
             Log.i(Main.LOGTAG, "Signed out");
             Games.signOut(googleApiClientHelper.getGoogleApiClient());

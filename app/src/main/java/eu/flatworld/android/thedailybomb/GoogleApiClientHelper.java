@@ -116,4 +116,12 @@ public class GoogleApiClientHelper implements
             Log.i(Main.LOGTAG, "Already signed out");
         }
     }
+
+    public void setSignInClicked(boolean value) {
+        mSignInClicked = value;
+    }
+
+    public void setResolvingConnectionFailure(boolean value) {
+        mResolvingConnectionFailure = value;
+    }
 }
