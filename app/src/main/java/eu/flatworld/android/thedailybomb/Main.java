@@ -7,9 +7,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class Main extends Application {
     public final static String LOGTAG = "THEDAILYBOMB";
 
-    public final static String NOTIFICATION_CHANNEL = "THEDAILYBOMB";
-
     public final static String EXTRA_BOMBID = "EXTRA_BOMBID";
+
+    public final static String NOTIFICATION_CHANNEL = "THEDAILYBOMB";
 
     @Override
     public void onCreate() {

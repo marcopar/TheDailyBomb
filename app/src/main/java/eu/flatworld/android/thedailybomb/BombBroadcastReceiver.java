@@ -12,8 +12,9 @@ public class BombBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(Main.LOGTAG, "Bomb received");
-        Intent intent1 = new Intent(context, BombNotificationService.class);
-        context.startService(intent1);
+        Intent serviceIntent = new Intent(context, BombNotificationService.class);
+        serviceIntent.putExtra(Main.EXTRA_BOMBID, intent.getStringExtra(Main.EXTRA_BOMBID));
+        context.startService(serviceIntent);
     }
 }
 

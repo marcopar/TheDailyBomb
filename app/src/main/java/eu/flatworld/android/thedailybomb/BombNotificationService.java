@@ -2,13 +2,12 @@ package eu.flatworld.android.thedailybomb;
 
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-
-import java.util.UUID;
 
 public class BombNotificationService extends IntentService {
     private static final int NOTIFICATION_ID = 3;
@@ -19,31 +18,40 @@ public class BombNotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        long[] vibrationPattern = new long[]{0L, 200L, 50L, 200L, 50L, 200L, 50L};
+        String title = "The title";
+        String description = "The description";
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this).setChannel(Main.NOTIFICATION_CHANNEL)
+                new NotificationCompat.Builder(this, Main.NOTIFICATION_CHANNEL)
                         .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
                         .setSmallIcon(R.mipmap.time_bomb_notification)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!").setVibrate(new long[]{0L, 200L, 50L, 200L, 50L, 200L, 50L});
+                        .setContentTitle(title)
+                        .setContentText(description).setVibrate(vibrationPattern);
 
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        resultIntent.putExtra(Main.EXTRA_BOMBID, UUID.randomUUID().toString());
-        PendingIntent resultPendingIntent =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    Main.NOTIFICATION_CHANNEL,
+                    title,
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setVibrationPattern(vibrationPattern);
+            channel.enableLights(true);
+            channel.enableVibration(true);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.putExtra(Main.EXTRA_BOMBID, intent.getStringExtra(Main.EXTRA_BOMBID));
+        PendingIntent pendingIntent =
                 PendingIntent.getActivity(
                         this,
                         0,
-                        resultIntent,
+                        notificationIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
+        mBuilder.setContentIntent(pendingIntent);
 
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        // Sets an ID for the notification
-        int mNotificationId = 001;
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr =
-                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId, mBuilder.setAutoCancel(true).build());
+        notificationManager.notify(0, mBuilder.build());
     }
 }
