@@ -11,10 +11,15 @@ public class BombBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(Main.LOGTAG, "Bomb received");
-        Intent serviceIntent = new Intent(context, BombNotificationService.class);
-        serviceIntent.putExtra(Main.EXTRA_BOMBID, intent.getStringExtra(Main.EXTRA_BOMBID));
-        context.startService(serviceIntent);
+        if (AppLifecycleHandler.isApplicationInForeground()) {
+            Log.i(Main.LOGTAG, "Bomb received, directly show the bomb screen");
+            Intent mainActivityIntent = new Intent(context, MainActivity.class);
+            context.startActivity(mainActivityIntent);
+        } else {
+            Log.i(Main.LOGTAG, "Bomb received, send the notification");
+            Intent serviceIntent = new Intent(context, BombNotificationService.class);
+            context.startService(serviceIntent);
+        }
     }
 }
 

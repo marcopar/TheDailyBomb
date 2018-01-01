@@ -3,4 +3,6 @@
     <string name="app_id">1080065987251</string>
     <string name="signin_other_error">Sign in generic error</string>
     <string name="status_exception_error">%1$s (status %2$d). %3$s.</string>
+    <string name="bomb_delivered">Bomb delivered!</string>
+    <string name="notification_channel_name">Bomb delivery</string>
 </resources>

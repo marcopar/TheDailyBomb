@@ -9,9 +9,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class Main extends Application {
     public final static String LOGTAG = "THEDAILYBOMB";
-    public final static String EXTRA_BOMBID = "EXTRA_BOMBID";
     public final static String NOTIFICATION_CHANNEL = "THEDAILYBOMB";
-
     public final static String PREF_CURRENTBOMB_JSON = "CURRENT_BOMB_JSON";
 
     @Override
@@ -22,6 +20,7 @@ public class Main extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        registerActivityLifecycleCallbacks(AppLifecycleHandler.getInstance());
     }
 
     public static Bomb getCurrentBomb(Context context) {

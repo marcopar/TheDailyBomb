@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
                         .build());
 
         setContentView(R.layout.main_activity);
-        String bombId = getIntent().getStringExtra(Main.EXTRA_BOMBID);
-        if (bombId != null) {
+        Bomb bomb = Main.getCurrentBomb(this);
+        if (bomb != null) {
             BombScreen bombScreen = new BombScreen();
             getFragmentManager().beginTransaction().replace(R.id.content_frame, bombScreen).commit();
         } else {

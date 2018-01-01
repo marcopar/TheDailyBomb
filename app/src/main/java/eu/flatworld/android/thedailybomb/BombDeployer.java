@@ -23,7 +23,6 @@ public class BombDeployer {
         }
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, BombBroadcastReceiver.class);
-        intent.putExtra(Main.EXTRA_BOMBID, bomb.getId());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
                 0,
