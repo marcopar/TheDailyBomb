@@ -13,16 +13,22 @@ import java.util.UUID;
  */
 
 public class BombDeployer {
-    public static void deployBomb(Context context) {
-
+    public static void deployBomb(Context context, long when) {
+        Bomb bomb = Main.getCurrentBomb(context);
+        if (bomb == null) {
+            bomb = new Bomb();
+            bomb.setId(UUID.randomUUID().toString());
+            bomb.setTimestamp(when);
+            Main.setCurrentBomb(context, bomb);
+        }
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, BombBroadcastReceiver.class);
-        intent.putExtra(Main.EXTRA_BOMBID, UUID.randomUUID().toString());
+        intent.putExtra(Main.EXTRA_BOMBID, bomb.getId());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
                 0,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManagerCompat.setExact(alarmManager, AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (3 * 1000), pendingIntent);
+        AlarmManagerCompat.setExact(alarmManager, AlarmManager.RTC_WAKEUP, bomb.getTimestamp(), pendingIntent);
     }
 }

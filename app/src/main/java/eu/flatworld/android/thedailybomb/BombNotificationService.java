@@ -10,8 +10,6 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 public class BombNotificationService extends IntentService {
-    private static final int NOTIFICATION_ID = 3;
-
     public BombNotificationService() {
         super("BombNotificationService");
     }
@@ -23,6 +21,7 @@ public class BombNotificationService extends IntentService {
         long[] vibrationPattern = new long[]{0L, 200L, 50L, 200L, 50L, 200L, 50L};
         String title = "The title";
         String description = "The description";
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this, Main.NOTIFICATION_CHANNEL)
                         .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
@@ -52,6 +51,6 @@ public class BombNotificationService extends IntentService {
                 );
         mBuilder.setContentIntent(pendingIntent);
 
-        notificationManager.notify(0, mBuilder.build());
+        notificationManager.notify(0, mBuilder.setAutoCancel(true).build());
     }
 }

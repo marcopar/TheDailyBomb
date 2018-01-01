@@ -14,7 +14,10 @@ public class BombScreen extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.bomb_screen, container, false);
-        Toast.makeText(getActivity(), getArguments().getString(Main.EXTRA_BOMBID), Toast.LENGTH_LONG).show();
+        Bomb bomb = Main.getCurrentBomb(getActivity());
+        Toast.makeText(getActivity(), bomb.getId(), Toast.LENGTH_LONG).show();
+
+        Main.setCurrentBomb(getActivity(), null);
         return v;
     }
 }

@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
         String bombId = getIntent().getStringExtra(Main.EXTRA_BOMBID);
         if (bombId != null) {
             BombScreen bombScreen = new BombScreen();
-            Bundle bundle = new Bundle();
-            bundle.putString(Main.EXTRA_BOMBID, bombId);
-            bombScreen.setArguments(bundle);
             getFragmentManager().beginTransaction().replace(R.id.content_frame, bombScreen).commit();
         } else {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainScreen()).commit();

@@ -51,7 +51,7 @@ public class SettingsScreen extends Fragment {
     }
 
     private void testNotificationClicked() {
-        BombDeployer.deployBomb(getActivity());
+        BombDeployer.deployBomb(getActivity(), System.currentTimeMillis() + 3000);
     }
 
 
